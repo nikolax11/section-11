@@ -64,22 +64,71 @@ https://raw.githubusercontent.com/[you]/[repo]/main/latest.json
 
 This allows AI coaches to access your real-time metrics (CTL, ATL, TSB, HRV, recent activities) without manual input each session.
 
-### 3. Use With Any AI
+#### 3. Use With Any AI
 
-Paste Section 11 + your dossier into any AI system:
+#### Option A: Persistent Setup (Recommended)
 
-**ChatGPT / Claude / Gemini:**
-> "You are my endurance coach. Follow this protocol: [paste Section 11]. Here is my athlete dossier: [paste dossier]. My current data is at: [JSON URL]"
+For ongoing coaching, create a dedicated space with persistent context:
 
-**CustomGPT / Poe Bot:**
-> Add Section 11 as system instructions, configure to read your JSON endpoint
+| Platform    | Feature     | How to Set Up                                                  |
+|-------------|-------------|----------------------------------------------------------------|
+| **Claude**  | Projects    | Create Project → Add Section 11 + Dossier to Project Knowledge |
+| **ChatGPT** | Projects    | Create Project → Add Section 11 + Dossier to Project Files     |
+| **ChatGPT** | CustomGPT   | Create GPT → Paste Section 11 in Instructions → Upload Dossier |
+| **Gemini**  | Gems        | Create Gem → Add Section 11 + Dossier to instructions          |
+| **Grok**    | Projects    | Create Project → Add Section 11 + Dossier to Project Sources   |
+| **Mistral** | New Project | Create New Project → Add Section 11 + Dossier to instructions  |
+| **Poe**     | Bot         | Create Bot → Add Section 11 as System Prompt → Upload Dossier  |
 
-The AI will now:
-- Validate data before giving advice
-- Cite specific frameworks for recommendations
-- Flag when data is stale or missing
-- Provide confidence levels for each recommendation
-- Follow your progression/regression rules
+**Required settings:**
+- ✅ Enable **web search / browsing** — Required for the AI to fetch your live JSON data
+- ✅ Add your JSON URL to the instructions
+
+**Copy-paste instructions for your Project/Space:**
+```
+You are my endurance coach. 
+
+Follow the Section 11 protocol (attached).
+Use my athlete dossier for targets, thresholds, and goals.
+Fetch my current training data from: https://raw.githubusercontent.com/[you]/[repo]/main/latest.json
+
+Always validate data freshness and cite frameworks per Section 11 B.
+```
+
+**Files to attach:**
+- `SECTION_11.md` — The protocol
+- `DOSSIER.md` (or `.txt`) — Your filled-in athlete dossier
+
+#### Option B: Per-Chat Setup
+
+For quick one-off analysis without persistent setup:
+
+1. Start a new chat
+2. Paste Section 11 + your Dossier
+3. Provide your JSON URL or paste current data manually
+4. Ask your question
+
+**Example prompt:**
+> "You are my endurance coach. Follow this protocol: [paste Section 11]. Here is my athlete dossier: [paste dossier]. My current data is at: [JSON URL]. Based on this, how am I recovering? Should I adjust today's session?"
+
+#### Platform Notes
+
+| Platform | Web Access | Notes |
+|----------|------------|-------|
+| Claude | ✅ Projects + Chat | Enable "Web search" in settings |
+| ChatGPT | ✅ Plus/Team | Browsing enabled by default |
+| Gemini | ✅ | Web access built-in |
+| Grok | ✅ | Web access built-in |
+| Mistral | ✅ | Le Chat has web access |
+| Perplexity | ✅ | Always searches web |
+| Local LLMs | ❌ | Must paste JSON data manually |
+
+#### Tips for Best Results
+
+- **Update your dossier** when FTP, weight, or goals change
+- **Check JSON freshness** — If sync fails, the AI should flag stale data
+- **Start sessions with context** — "Review my latest.json and summarize my current status"
+- **Ask for validation** — "Show me your Section 11 B validation metadata for this response"
 
 ---
 
