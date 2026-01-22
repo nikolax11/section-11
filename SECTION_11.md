@@ -32,10 +32,17 @@ If the AI instance does not retain prior context (e.g., new chat or session), it
 
 If the AI or LLM system is not directly or indirectly connected to the Intervals.icu API, it may reference an athlete-provided public data mirror.
 
-Endpoint:
-https://raw.githubusercontent.com/CrankAddict/t1-data/refs/heads/main/latest.json — Intervals Training Data (JSON Source)
-Archive:
-https://github.com/CrankAddict/t1-data/tree/main/archive
+**Example endpoint format:**
+```
+https://raw.githubusercontent.com/[username]/[repo]/main/latest.json
+```
+
+**Example archive format:**
+```
+https://github.com/[username]/[repo]/tree/main/archive
+```
+
+> **Note:** The actual URLs for your data mirror are defined in your athlete dossier. The AI must fetch from the dossier-specified endpoint.
 
 This file represents a synchronized snapshot of current Intervals.icu metrics and activity summaries, structured for deterministic AI parsing and audit compliance.
 
@@ -151,6 +158,7 @@ Before providing recommendations, AI systems must verify:
 
 | #  | **Check**                        | **Deterministic Rules/Requirement**.                                                                                                                   |
 |----|----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 0  | **Data Source Fetch**            | Fetch JSON from mirror URL FIRST. If fetch fails or data unavailable, STOP and request manual data input.                                              |
 | 1  | FTP Source Verification          | Confirm FTP/LT2 is explicitly athlete-provided or from API or JSON mirror. Do not infer or recalculate from performance history.                       |
 | 2  | Data Consistency Check           | Verify weekly training hours and load totals match the “READ_THIS_FIRST → quick_stats” dataset. Confirm totals within ±1% tolerance of logged data     |             
 | 3  | No Virtual Math Policy           | Ensure all computed metrics originate from raw or mirrored data. No interpolation, smoothing, or estimation permitted.                                 |
@@ -237,6 +245,12 @@ Ensure every statement is fact-based and verifiable from provided data.
 
 When uncertain, the AI must ask, not assume.
 
+**Brevity Rule:**
+- If all metrics are within normal ranges: respond in 1–3 sentences
+- Elaborate only when specific thresholds are breached
+- Do NOT cite "per Section 11" or "according to the protocol" in routine responses — the protocol governs behavior silently
+- Reserve detailed explanations for red flags or when the athlete asks for reasoning
+
 ---
 
 ### 6. Recommendation Formatting
@@ -317,6 +331,23 @@ RI = (HRV_today / HRV_baseline) ÷ (RHR_today / RHR_baseline)
 - If RI < 0.7 for >3 consecutive days, trigger block-level deload or load-modulation review
 
 AI systems must only consider caloric-reduction or weight-optimization phases during readiness-positive windows (DI ≥ 0.95, HR drift ≤ 3 %, RI ≥ 0.8), referencing Section 8 — Weight Adjustment Control.
+
+---
+
+### TSB Interpretation (Phase-Aware)
+
+**During Build Phases (normal training blocks):**
+- TSB −10 to −30: **Normal and expected** — reflects productive overload, not a problem
+- TSB < −30: Monitor closely; check for compounding fatigue signals
+- TSB > 0: Unusual during build — indicates under-training or unplanned recovery
+
+**Recovery recommendations based on TSB alone are NOT warranted** during build phases unless accompanied by:
+- HRV ↓ > 20%
+- RHR ↑ ≥ 5 bpm
+- Feel ≥ 4/5
+- Performance decline
+
+A negative TSB is the mechanism of adaptation, not a warning signal.
 
 ---
 
@@ -563,6 +594,8 @@ Every generated or modified plan must embed machine-readable metadata for audit 
 
 ```json
 {
+  "data_source_fetched": true,
+  "json_fetch_status": "success",
   "plan_version": "auto",
   "phase": "Build",
   "week": 3,
@@ -605,7 +638,9 @@ This subsection defines the formal self-validation and audit metadata structure 
 ```json
 {
   "validation_metadata": {
-    "protocol_version": "11.0",
+    "data_source_fetched": true,
+    "json_fetch_status": "success",
+    "protocol_version": "11.1",
     "checklist_passed": [1, 2, 3, 4, 5, 6, "6b", 7, 8, 9, 10],
     "checklist_failed": [],
     "data_timestamp": "2026-01-13T22:32:05Z",
@@ -624,40 +659,46 @@ This subsection defines the formal self-validation and audit metadata structure 
 
 ### Field Definitions
 
-| Field                   | Type     | Description                                           |
-|-------------------------|----------|-------------------------------------------------------|
-| `protocol_version`      | string   | Section 11 version being followed                     |
-| `checklist_passed`      | array    | List of checklist items (1–10) that passed validation |
-| `checklist_failed`      | array    | List of checklist items that failed, with reasons     |
-| `data_timestamp`        | ISO 8601 | Timestamp of the data being referenced                |
-| `data_age_hours`        | number   | Hours since data was last updated                     |
-| `athlete_timezone`      | string   | Athlete's local timezone (e.g., "UTC+1")              |
-| `utc_aligned`           | boolean  | Whether dataset timestamps align with UTC             |
-| `system_offset_minutes` | number   | Offset between system and data clocks                 |
-| `timestamp_valid`       | boolean  | Whether timestamp passed validation                   |
-| `confidence`            | string   | "high" / "medium" / "low" based on data completeness  |
-| `missing_inputs`        | array    | List of metrics that were unavailable                 |
-| `frameworks_cited`      | array    | Scientific frameworks applied in reasoning            |
-| `recommendation_count`  | number   | Number of actionable recommendations provided         |
+| Field                   | Type     | Description                                                                         |
+|-------------------------|----------|-------------------------------------------------------------------------------------|
+| `data_source_fetched`   | boolean  | Whether JSON was successfully fetched from mirror URL                               |
+| `json_fetch_status`     | string   | "success" / "failed" / "unavailable" — stop and request manual input if not success |
+| `protocol_version`      | string   | Section 11 version being followed                                                   |
+| `checklist_passed`      | array    | List of checklist items (1–10) that passed validation                               |
+| `checklist_failed`      | array    | List of checklist items that failed, with reasons                                   |
+| `data_timestamp`        | ISO 8601 | Timestamp of the data being referenced                                              |
+| `data_age_hours`        | number   | Hours since data was last updated                                                   |
+| `athlete_timezone`      | string   | Athlete's local timezone (e.g., "UTC+1")                                            |
+| `utc_aligned`           | boolean  | Whether dataset timestamps align with UTC                                           |
+| `system_offset_minutes` | number   | Offset between system and data clocks                                               |
+| `timestamp_valid`       | boolean  | Whether timestamp passed validation                                                 |
+| `confidence`            | string   | "high" / "medium" / "low" based on data completeness                                |
+| `missing_inputs`        | array    | List of metrics that were unavailable                                               |
+| `frameworks_cited`      | array    | Scientific frameworks applied in reasoning                                          |
+| `recommendation_count`  | number   | Number of actionable recommendations provided                                       |
 
 ---
 
 ### Plan Metadata Schema (Section 11 B Reference)
 
-| Field                 | Type    | Description                                                |
-|-----------------------|---------|------------------------------------------------------------|
-| `plan_version`        | string  | Version identifier for the plan                            |
-| `phase`               | string  | Current macro-phase (Base/Build/Peak/Taper/Recovery)       |
-| `week`                | number  | Week number within current phase                           |
-| `load_target_TSS`     | number  | Target weekly TSS                                          |
-| `volume_hours`        | number  | Target weekly training hours                               |
-| `polarization_ratio`  | number  | Target polarization (≈ 0.8)                                |
-| `progression_vector`  | string  | Active progression type (duration/intensity/environmental) |
-| `load_variance`       | boolean | Whether volume exceeds ±10% baseline                       |
-| `validation_protocol` | string  | Framework version (e.g., "URF_v5.1")                       |
-| `confidence`          | string  | "high" / "medium" / "low"                                  |
-| `override`            | boolean | Human override flag (requires athlete confirmation)        |
-| `error`               | string  | Rejection reason if validation failed                      |
+| Field                 | Type    | Description                                                                         |
+|-----------------------|---------|-------------------------------------------------------------------------------------|
+| `data_source_fetched` | boolean | Whether JSON was successfully fetched from mirror URL                               |
+| `json_fetch_status`   | string  | "success" / "failed" / "unavailable" — stop and request manual input if not success |
+| `plan_version`        | string  | Version identifier for the plan                                                     |
+| `phase`               | string  | Current macro-phase (Base/Build/Peak/Taper/Recovery)                                |
+| `week`                | number  | Week number within current phase                                                    |
+| `load_target_TSS`     | number  | Target weekly TSS                                                                   |
+| `volume_hours`        | number  | Target weekly training hours                                                        |
+| `polarization_ratio`  | number  | Target polarization (≈ 0.8)                                                         |
+| `progression_vector`  | string  | Active progression type (duration/intensity/environmental)                          |
+| `load_variance`       | boolean | Whether volume exceeds ±10% baseline                                                |
+| `validation_protocol` | string  | Framework version (e.g., "URF_v5.1")                                                |
+| `confidence`          | string  | "high" / "medium" / "low"                                                           |
+| `override`            | boolean | Human override flag (requires athlete confirmation)                                 |
+| `error`               | string  | Rejection reason if validation failed                                               |
+
+Validation routines parse and cross-verify all metadata fields defined in Section 11 B — AI Training Plan Protocol to confirm compliance before plan certification.
 
 ---
 
