@@ -134,10 +134,6 @@ Rules:
 Documents attached:
 - DOSSIER.md — Profile, zones, goals
 - SECTION_11.md — AI coaching protocol
-
-**Files to attach:**
-- `SECTION_11.md` — The protocol
-- `DOSSIER.md` (or `.txt`) — Your filled-in athlete dossier
 ```
 
 **Replace `[USERNAME]/[REPO]` with your actual GitHub data mirror path.**
