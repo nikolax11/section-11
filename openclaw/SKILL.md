@@ -13,6 +13,16 @@ On first use, check if DOSSIER.md exists in the workspace:
 3. Save as DOSSIER.md in the workspace
 4. Do not proceed with coaching until dossier is complete
 
+## JSON Data Setup
+
+Ask the athlete to set up their Intervals.icu data mirror:
+1. Create a private GitHub repo for training data
+2. Set up automated sync from Intervals.icu to `latest.json`
+3. Provide the raw URL (e.g., `https://raw.githubusercontent.com/[user]/[repo]/main/latest.json`)
+4. Save the URL in DOSSIER.md under "Data Source"
+
+See: https://github.com/CrankAddict/section-11#2-set-up-your-data-mirror-optional-but-recommended
+
 ## Protocol
 
 Fetch and follow: https://raw.githubusercontent.com/CrankAddict/section-11/main/SECTION_11.md
