@@ -8,6 +8,7 @@ Working implementations for Section 11 integrations.
 |--------|-------------|--------|
 | [json-auto-sync](json-auto-sync/) | Automated GitHub Actions sync (every 15 min) | ✅ Ready |
 | [json-manual](json-manual/) | Manual export from Mac/PC | ✅ Ready |
+| [reports](reports/) | Pre/post workout report templates | ✅ Ready |
 | custom-gpt | ChatGPT CustomGPT implementation | 🔜 Coming |
 | mcp-server | MCP Server with direct API access | 🔜 Coming |
 
@@ -16,20 +17,28 @@ Working implementations for Section 11 integrations.
 ## Quick Start
 
 ### Option A: Automated Sync (Recommended)
+
 Best for: Always-fresh data, zero maintenance after setup.
 
 → [json-auto-sync/SETUP.md](json-auto-sync/SETUP.md)
 
 ### Option B: Manual Export
+
 Best for: One-off exports, different time ranges, no GitHub needed.
 
 → [json-manual/SETUP.md](json-manual/SETUP.md)
 
 ---
 
-## Shared Script
+## Shared Files
 
-Both methods use the same `sync.py` script:
+Both methods use the same `sync.py` script and produce these files:
+
+| File | Purpose | Auto-created |
+|------|---------|--------------|
+| `latest.json` | Training data for AI consumption | Yes |
+| `ftp_history.json` | FTP tracking for Benchmark Index | Yes |
+| `archive/` | Timestamped snapshots (auto-sync only) | Yes |
 
 ```bash
 # Manual local export
@@ -55,9 +64,43 @@ latest.json
 ├── READ_THIS_FIRST      → AI instructions + quick stats
 ├── metadata             → Timestamps, version
 ├── summary              → Activity breakdown by type
-├── current_status       → FTP, CTL, ATL, TSB, HRV, weight
-├── recent_activities    → Detailed activity data
+├── current_status
+│   ├── fitness          → CTL, ATL, TSB, ramp_rate
+│   ├── thresholds       → FTP, eFTP, LTHR, W', P-max, VO2max
+│   └── current_metrics  → Weight, RHR, HRV, sleep score
+├── derived_metrics      → Section 11 calculated values (see below)
+├── recent_activities    → Detailed activity data with zones
 ├── wellness_data        → Daily HRV, RHR, sleep, fatigue
 ├── planned_workouts     → Upcoming scheduled sessions
 └── weekly_summary       → Aggregated totals
 ```
+
+### Derived Metrics
+
+Pre-calculated values for Section 11 compliance — AI should use these, not calculate its own:
+
+| Metric | Description |
+|--------|-------------|
+| `acwr` | Acute:Chronic Workload Ratio (0.8–1.3 optimal) |
+| `recovery_index` | HRV/RHR composite (>1.0 = good recovery) |
+| `monotony` / `strain` | Training variability (Foster) |
+| `grey_zone_percentage` | Z3 time % — minimize in polarized training |
+| `quality_intensity_percentage` | Z4+ time % — target ~20% |
+| `polarisation_index` | Easy time ratio — target ~0.80 |
+| `consistency_index` | Plan adherence (completed/planned) |
+| `phase_detected` | Auto-detected: Base, Build, Peak, Recovery, Taper |
+| `benchmark_indoor` / `benchmark_outdoor` | 8-week FTP progression |
+
+---
+
+## Report Templates
+
+The [reports/](reports/) folder contains Section 11-compliant templates:
+
+| Template | Use case |
+|----------|----------|
+| `PRE_WORKOUT_TEMPLATE.md` | Briefing before a session |
+| `POST_WORKOUT_TEMPLATE.md` | Analysis after a session |
+| `*_EXAMPLES.md` | Anonymized examples showing normal and threshold-breach scenarios |
+
+Use these to standardize AI coaching output across platforms.
