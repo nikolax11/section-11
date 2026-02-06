@@ -16,8 +16,8 @@ Duration: [X.XX] hours (planned [Xh])
 Distance: [XX.X] km
 Power: [XXX] W avg / [XXX] W NP
 Power zones: [XX.X]% Zone 1, [XX.X]% Zone 2
-Grey Zone (Z3): [X.X]%
-Quality (Z4+): [X.X]%
+Grey Zone (Z3): [XX]%
+Quality (Z4+): [XX]%
 HR: [XXX] avg / [XXX] max
 HR zones: [XX.X]% Zone 1, [XX.X]% Zone 2
 Cadence: [XX] avg
