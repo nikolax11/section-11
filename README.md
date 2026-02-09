@@ -21,18 +21,6 @@ Most AI coaching today is inconsistent — the same question gets different answ
 
 ---
 
-## Related Projects
-
-This protocol builds on concepts from the endurance coaching community:
-
-### Clive King's Intervals.icu GPT Coach
-
-**[Intervals.icu GPT Coaching Framework v17](https://github.com/revo2wheels/intervalsicugptcoach-public)** — A full CustomGPT implementation with Railway backend, OAuth integration, and automated reporting via the Unified Reporting Framework (URF) v5.1.
-
-- **Live App:** [cliveking.net](https://www.cliveking.net/) — Working Coach V5 with automated Weekly, Seasonal, and Wellness reports
-
----
-
 ## What's Included
 
 | File | Description |
