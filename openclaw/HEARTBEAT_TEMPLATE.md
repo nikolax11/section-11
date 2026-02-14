@@ -70,3 +70,6 @@ Copy this file to your workspace as `HEARTBEAT.md` and fill in the bracketed val
 - Weather silence when conditions are bad reduces noise
 - Background analysis window should fall between training weeks to avoid mid-week disruption
 - Configure scheduling in your agent platform (cron, heartbeat system, etc.) to run checks within notification hours
+
+**Note:** The heartbeat is fully opt-in and disabled by default. It must be explicitly configured by the user. When active, it only performs scheduled analysis (read training data → run protocol checks → write summaries/plans to your chosen location).
+
