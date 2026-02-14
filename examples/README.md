@@ -24,7 +24,7 @@ Best for: Always-fresh data, zero maintenance after setup.
 
 ### Option B: Manual Export
 
-Best for: One-off exports, different time ranges, no GitHub needed.
+Best for: One-off exports, different time ranges, no GitHub needed, most privacy.
 
 → [json-manual/SETUP.md](json-manual/SETUP.md)
 
