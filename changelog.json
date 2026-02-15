@@ -1,8 +1,9 @@
 {
-  "notification_id": "2026-02-12",
+  "notification_id": "2026-02-15",
   "changes": [
-    "SECTION_11.md - UPDATE - 2026-02-12 - v11.4: Graduated alert thresholds, monotony deload context, history.json reference, data source hierarchy, confidence scoring",
-    "sync.py - UPDATE - 2026-02-12 - v3.3.0: Alerts array, history generation, update notifications, deload context detection",
-    "auto-script.json - UPDATE - 2026-02-12"
+    "sync.py - UPDATE - 2026-02-15 - v3.3.4: Seiler TID classification + Polarization Index, multi-sport monotony fix, hard day zone ladder, smart fitness metrics",
+    "examples/reports - UPDATE - 2026-02-15 - All templates updated: TID classification, Recovery Index, monotony context",
+    "SETUP.md - UPDATE - 2026-02-14 - Rewritten setup guides",
+    "openclaw/SKILL.md - UPDATE - 2026-02-14 - Updated OpenClaw skill + heartbeat template"
   ]
 }
