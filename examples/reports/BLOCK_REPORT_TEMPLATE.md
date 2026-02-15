@@ -58,6 +58,7 @@ Wellness (block avg vs previous block):
   RHR: [XX] bpm (prev block: [XX] bpm) [↑/↓/→] [assessment]
   Sleep: [X.X]h (prev block: [X.X]h) [↑/↓/→] [assessment]
   Avg RI: [X.XX] (prev block: [X.XX])
+  Avg Monotony: [X.XX] ([note])
 
 Section 11 Flags During Block:
   [List each flag with date and resolution, or "None"]
