@@ -39,6 +39,8 @@ TSS: 10 (planned 10)
 
 Weekly totals:
 Polarization: Z1+Z2 96.5%, Z3 0.8%, Z4+ 2.7%
+Durability: 2.14% 7d / 2.50% 28d (stable)
+TID 28d: Polarized (PI: 3.18) — drift: consistent
 TSB: -4.85
 CTL: 71.20
 ATL: 76.05
@@ -80,6 +82,8 @@ TSS: 95 (planned 90)
 
 Weekly totals:
 Polarization: Z1+Z2 84.2%, Z3 2.4%, Z4+ 13.4%
+Durability: 2.95% 7d / 2.50% 28d (stable)
+TID 28d: Polarized (PI: 3.10) — drift: consistent
 TSB: -11.40
 CTL: 72.80
 ATL: 84.20
@@ -125,6 +129,8 @@ Reason: Precautionary — knee discomfort from ride
 
 Weekly totals:
 Polarization: Z1+Z2 98.1%, Z3 0.1%, Z4+ 1.8%
+Durability: 1.92% 7d / 2.40% 28d (improving)
+TID 28d: Polarized (PI: 3.15) — drift: consistent
 TSB: +2.35
 CTL: 70.50
 ATL: 68.15
@@ -160,6 +166,8 @@ TSS: 6
 
 Weekly totals:
 Polarization: Z1+Z2 97%, Z3 0%, Z4+ 3%
+Durability: 2.30% 7d / 2.55% 28d (stable)
+TID 28d: Polarized (PI: 3.22) — drift: consistent
 TSB: +0.85
 CTL: 73.10
 ATL: 72.25
