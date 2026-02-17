@@ -95,12 +95,12 @@ No citations, no source markers, no parenthetical references. Raw data and analy
 2. One-line summary
 3. Session block(s) — one per activity, line-by-line:
    Activity type & name, start time, duration (actual vs planned), distance, power (avg/NP), power zones (%), Grey Zone (Z3) %, Quality (Z4+) %, HR (avg/max), HR zones (%), cadence, decoupling (with label), Variability Index (with label), calories (kcal), carbs used (g), TSS (actual vs planned)
-4. Weekly totals: Polarization, TSB, CTL, ATL, Ramp rate, ACWR, Hours, TSS
+4. Weekly totals: Polarization, Durability (7d/28d + trend), TID 28d (+ drift), TSB, CTL, ATL, Ramp rate, ACWR, Hours, TSS
 5. Overall: Coach note (2–4 sentences — compliance, quality observations, load context, recovery note)
 
 Omit fields only if data unavailable for that activity type.
 
-**Pre-workout reports** must include: readiness (HRV, RHR, Sleep vs baselines), load context (TSB, ACWR, Monotony if > 2.3), today's planned workout, Go/Modify/Skip recommendation.
+**Pre-workout reports** must include: readiness (HRV, RHR, Sleep vs baselines), load context (TSB, ACWR, Monotony if > 2.3), capability snapshot (durability 7d + trend, TID drift if not consistent), today's planned workout, Go/Modify/Skip recommendation.
 
 See Section 11 → Communication Style and Output Format Guidelines for full rules.
 
@@ -250,7 +250,7 @@ Standardized metadata schema for audit trails:
   "validation_metadata": {
     "data_source_fetched": true,
     "json_fetch_status": "success",
-    "protocol_version": "11.1",
+    "protocol_version": "11.5",
     "checklist_passed": [0, 1, 2, 3, 4, 5, 6, "6b", 7, 8, 9, 10],
     "checklist_failed": [],
     "data_timestamp": "2026-01-23T10:02:07Z",
@@ -264,7 +264,7 @@ Standardized metadata schema for audit trails:
 
 ### Scientific Foundations
 
-The protocol integrates 15+ validated endurance science frameworks:
+The protocol integrates 19+ validated endurance science frameworks:
 
 | Framework | Application |
 |-----------|-------------|
@@ -344,6 +344,9 @@ The sync script pre-calculates Section 11-compliant metrics so AI doesn't need t
 | Seiler TID | 3-zone classification (Polarized/Pyramidal/Threshold/HIT/Base) |
 | Polarization Index (PI) | Treff et al. quantitative polarization score |
 | Hard Days/Week | Zone ladder classification per Seiler/Foster |
+| Seiler TID 28d | 28-day chronic Seiler classification (Polarized/Pyramidal/etc.) |
+| Aggregate Durability | Rolling 7d/28d mean decoupling from steady-state sessions |
+| TID Drift | 7d vs 28d TID comparison (consistent/shifting/acute_depolarization) |
 
 ### FTP History Tracking
 
@@ -455,6 +458,7 @@ This work is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/
 - [x] Report templates (pre/post workout)
 - [x] Longitudinal history generation (tiered granularity)
 - [x] Upstream update notifications via GitHub Issues
+- [x] Capability metrics (aggregate durability, dual-timeframe TID)
 - [ ] CustomGPT implementation
 - [ ] MCP Server integration
 
