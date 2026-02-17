@@ -1,9 +1,10 @@
 {
-  "notification_id": "2026-02-15",
+  "notification_id": "2026-02-17",
   "changes": [
-    "sync.py - UPDATE - 2026-02-15 - v3.3.4: Seiler TID classification + Polarization Index, multi-sport monotony fix, hard day zone ladder, smart fitness metrics",
-    "examples/reports - UPDATE - 2026-02-15 - All templates updated: TID classification, Recovery Index, monotony context",
-    "SETUP.md - UPDATE - 2026-02-14 - Rewritten setup guides",
-    "openclaw/SKILL.md - UPDATE - 2026-02-14 - Updated OpenClaw skill + heartbeat template"
+    "sync.py - UPDATE - 2026-02-17 - v3.4.0: Aggregate durability (7d/28d decoupling trend), dual-timeframe TID (7d vs 28d with drift detection), capability metrics namespace",
+    "SECTION_11.md - UPDATE - 2026-02-17 - v11.5: Seiler TID classification system, aggregate durability, capability metrics, +4 evidence-based foundations",
+    "examples/reports - UPDATE - 2026-02-17 - All templates updated: durability and TID 28d at every report level",
+    "openclaw/SKILL.md - UPDATE - 2026-02-17 - Protocol version bumped to 11.5",
+    "README.md - UPDATE - 2026-02-17 - Derived metrics table, report requirements, roadmap updated for v3.4.0"
   ]
 }
